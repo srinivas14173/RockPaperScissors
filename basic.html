@@ -1,15 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Rock Paper Scissors Simple Version</title>
+<title>Rock Paper Scissors basic version</title>
 </head>
 
 <body>
 
-<div id="content"></div>
+	<p>
+		<span>The human has choosen:</span><br /><br />
+		<input type="radio" name="human-choice" value="rock">Rock<br />
+		<input type="radio" name="human-choice" value="paper">Paper<br />
+		<input type="radio" name="human-choice" value="scissors">Scissors<br /><br />
+		<input type="button" id="play-game" value="Play" /><br /><br />
+	</p>
 
-<!-- Scripts -->
-<script type="text/javascript" src="libs/jquery-1.7.1.min.js"></script>
+	<p>
+		The computer has choosen: <i><span id="computer-choice"></span></i>
+	</p>
+
+	<p>
+		<br /><br />
+		And the winner is: <span id="winner"></span>
+	</p>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript">
+
+	var choiceArray = ['rock', 'paper', 'scissors'];
+	var humanChoice = '';
+	var computerChoice = '';
+	var winner = '';
+
+
+	$('#play-game').click(function() {
+
+		computerChoice = choiceArray[Math.floor(Math.random() * choiceArray.length)];
+		humanChoice = $('input:radio[name=human-choice]:checked').val();
+
+		if ((humanChoice === '') || humanChoice === undefined) {
+			alert('Please choose an object to play!');
+		} else {
+			$('#computer-choice').text(computerChoice);
+			var winner = theWinnerIs(humanChoice, computerChoice)
+			$('#winner').text(winner);
+		}
+
+	});
+
+	function theWinnerIs(humanChoice, computerChoice) {
+
+		if (humanChoice === computerChoice ) {
+			return 'no winner it is a draw';
+		}
+
+		if ((humanChoice === 'rock') && (computerChoice === 'scissors')) {
+			return 'human';
+		}
+		if ((humanChoice === 'rock') && (computerChoice === 'paper')) {
+			return 'computer';
+		}
+
+		if ((humanChoice === 'paper') && (computerChoice === 'scissors')) {
+			return 'computer';
+		}
+		if ((humanChoice === 'paper') && (computerChoice === 'rock')) {
+			return 'human';
+		}
+
+		if ((humanChoice === 'scissors') && (computerChoice === 'rock')) {
+			return 'computer';
+		}
+		if ((humanChoice === 'scissors') && (computerChoice === 'paper')) {
+			return 'human';
+		}
+
+	};
+
+</script>
+
 
 </body>
 </html>
